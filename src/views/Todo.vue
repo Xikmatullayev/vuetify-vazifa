@@ -12,7 +12,7 @@
       clearable
     ></v-text-field>
 
-    <v-list class="pt-0" flat>
+    <v-list class="pt-0 pb-0" flat>
       <div v-for="task in $store.state.tasks" :key="task.id">
         <v-list-item
           @click="$store.commit('doneTask', task.id), snackbar = true"
@@ -61,6 +61,9 @@ export default {
       snackbar: false,
       timeout: 2000
     }
-  }
+  },
+  created () {
+    this.$store.commit("getTask");
+  },
 };
 </script>

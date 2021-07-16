@@ -13,12 +13,7 @@
       <v-divider></v-divider>
 
       <v-list dense nav>
-        <v-list-item 
-          v-for="item in items" 
-          :key="item.title"
-          :to="item.to" 
-          link
-        >
+        <v-list-item v-for="item in items" :key="item.title" :to="item.to" link>
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-icon>
@@ -34,8 +29,8 @@
       app
       color="primary"
       dark
-      src="https://picsum.photos/1920/1080?random"
-      prominent  
+      src="@/assets/bg.jpg"
+      prominent
     >
       <template v-slot:img="{ props }">
         <v-img
@@ -61,11 +56,10 @@
       <v-btn icon @click="toggleTheme">
         <v-icon>mdi-theme-light-dark</v-icon>
       </v-btn>
-      
+
       <v-btn icon>
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
-
     </v-app-bar>
 
     <v-main>
@@ -83,12 +77,22 @@ export default {
         { title: "Vazifalar", icon: "mdi-format-list-checks", to: "/" },
         { title: "Haqida", icon: "mdi-help-box", to: "/about" },
       ],
-    }
+    };
   },
   methods: {
     toggleTheme() {
-      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+      console.log(this.$vuetify.theme.dark);
+      localStorage.setItem("dark", this.$vuetify.theme.dark.toString());
+    },
+  },
+  mounted() {
+    const isDark = localStorage.getItem("dark");
+    if (isDark == "true") {
+      this.$vuetify.theme.dark = true;
+    } else {
+      this.$vuetify.theme.dark = false;
     }
-  }
+  },
 };
 </script>
